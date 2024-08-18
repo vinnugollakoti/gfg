@@ -129,8 +129,9 @@ const emailStyles = `
     }
 });
 
-app.get("/",(res,req)=>{res.send("hi")})
-
+app.get("/", (req, res) => {
+  res.send("hi");
+});
 
 mongoose.connect(mongoURI)
 .then(() => console.log("Connected to MongoDB"))
