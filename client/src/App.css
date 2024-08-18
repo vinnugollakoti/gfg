@@ -6,9 +6,12 @@ body {
   font-family: "Poppins", sans-serif;
   font-weight: 400;
   font-style: normal;
+  margin-bottom: 2%;
+  background-color: rgba(245, 254, 246, 0.84);
 }
 .coverphoto {
   width: 100%;
+  margin-bottom: 2%;
 }
 nav {
   width: 100%;
@@ -18,6 +21,7 @@ nav {
   color: black;
   display: flex;
   justify-content: space-between;
+
 }
 .logo {
   width: 110px;
@@ -34,17 +38,17 @@ nav {
   padding-right: 4.6%;
 }
 .model {
-  background-color: inherit;
   border-radius: 30px;
-  width: 80%;
-  margin-left: 10%;
+  background-color: white;
+  width: 60%;
+  margin-left: 5%;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
 }
 .model2 {
-  background-color: inherit;
+  background-color: white;
   border-radius: 30px;
-  width: 80%;
-  margin-left: 10%;
+  width: 60%;
+  margin-left: 5%;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
   margin-top: 6%;
 }
@@ -63,19 +67,15 @@ nav {
 }
 .about {
   padding: 1% 5%;
-  margin-top: 2%;
 }
-.main-about {
+/* .main-about {
   padding: 2% 4%;
-  margin-top: 2%;
   width: 90%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  border: 2px solid black;
   border-radius: 30px;
-  margin-bottom: 2%;
-}
+} */
 .registrationbtn {
   border-radius: 10px;
   border: 3px solid green;
@@ -103,8 +103,452 @@ h3,p {
   align-items: center;
 }
 .rank {
-  font-size: 50px;
+  font-size: 20px;
   color: green;
   margin: 0px;
-  padding-right: 50px;
+  padding-right: 10px;
 }
+
+
+/* text */
+.para1 {
+  margin-top: 2%;
+}
+.about {
+  padding: 1% 5%;
+}
+.coverphoto {
+  width: 100%;
+  margin-bottom: 2%;
+}
+.main-about {
+  padding: 0.5% 4%;
+  width: 90%;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  margin-left: 2%;
+  margin-top: 1%;
+  border-radius: 30px;
+}
+.heading {
+  letter-spacing: 3px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  margin: 0px;
+  padding-top: 1%;
+  text-decoration: underline;
+}
+.heading1 {
+  letter-spacing: 3px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  font-size: x-large;
+  margin: 0px;
+  padding-top: 1%;
+  text-decoration: underline;
+}
+.model2 {
+  background-color: white;
+  border-radius: 30px;
+  width: 60%;
+  margin-left: 5%;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+  margin-top: 6%;
+}
+.bg {
+  position: fixed;
+  margin-left: 29%;
+  margin-top: 45vh;
+  z-index: -1;
+  opacity: 50%; 
+}
+.hr1 {
+  width: 60%;
+  margin-left: 5%;
+  background-color: green;
+  height: 1px;
+  margin-top: 3%;
+}
+.hr2 {
+  width: 60%;
+  margin-left: 5%;
+  background-color: green;
+  height: 1px;
+}
+.contacts{
+  width: 60%;
+  margin-left: 5%;
+}
+.model {
+  border-radius: 30px;
+  background-color: white;
+  width: 60%;
+  padding-bottom: 2%;
+  padding-top: 1%;
+  margin-left: 5%;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+}
+.model2 {
+  background-color: white;
+  border-radius: 30px;
+  width: 60%;
+  margin-left: 5%;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+  margin-top: 4%;
+}
+.line1{
+  font-weight: 600;
+  margin-bottom: 1%;
+}
+.line2 {
+  font-size: 15px;
+}
+.contacts2 {
+  width: 60%;
+  margin-left: 5%;
+  display: flex;
+  justify-content: space-around;
+}
+.register-modal {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.h3 {
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+}
+.card {
+  width: 25%;
+  height: fit-content;
+  padding: 2%;
+  margin-right: 5%;
+  border-radius: 30px;
+  background-color: #fff;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* position: fixed;
+  right: 0; */
+  /* display: grid; */
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.info {
+  width: 100%;
+  margin-bottom: 20px;
+}
+.info-item {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+.deadline{
+  text-align: right;
+}
+.register {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.bg {
+  margin-left: 27%;
+}
+.line1, .line2 {
+  font-size: 13px;
+}
+
+.register-btn {
+  background-color: green;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.register-btn:hover {
+  background-color: rgb(66, 177, 66);
+}
+
+@media (max-width: 768px) {
+  .strong {
+    font-size: 18px;
+  }
+  .heading{
+    font-size: 16.5px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+  }
+  .heading1 {
+    font-size: 18px;
+  }
+  .para1 {
+    font-size: 12px;
+  }
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nav-1-1 {
+    width: 100%;
+    padding: 0;
+  }
+
+  .model, .model2 {
+    width: 95%; 
+    margin-left: 0px;
+    margin-left: 2.5%;/* Adjusted for smaller screens */
+  }
+
+  .card {
+    width: 95%;
+  }
+
+  .contacts, .contacts2 {
+    width: 95%; /* Adjusted for smaller screens */
+  }
+  .card {
+    width: 80%;
+    margin-top: 5%;
+    margin-right: 0px;
+    margin-left: 10%;
+  }
+  .h3 {
+    font-size: 15px;
+  }
+  h3 {
+    font-size: 13px;
+  }
+  .p{
+    font-size: 13px;
+  }
+  .info {
+    width: 150%;
+  }
+  .main-about {
+    padding: 0px;
+  }
+  .register-btn {
+    padding: 5px 10px;
+    font-size: medium;
+    border-radius: 5px;
+  }
+  .hr1, .hr2{
+    width: 90%;
+  }
+  .bg {
+    width: 90%;
+    margin-left: 0%;
+    margin-left: 5%;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0 5px; /* Further adjustments for smaller screens */
+  }
+  .strong {
+    font-size: 14px;
+  }
+  .heading{
+    font-size: 14.5px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+  }
+  .heading1 {
+    font-size: 13px;
+  }
+  .para1 {
+    font-size: 12px;
+  }
+  .model, .model2 {
+    width: 95%; 
+    margin-left: 0px;
+    margin-left: 2.5%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    /* Adjusted for smaller screens */
+  }
+
+  .contacts, .contacts2 {
+    width: 95%; /* Adjusted for smaller screens */
+  }
+  .card {
+    width: 80%;
+    margin-top: 5%;
+    margin-right: 0px;
+    margin-left: 7%;
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+  .h3 {
+    font-size: 13px;
+  }
+  h3 {
+    font-size: 11px;
+  }
+  .p{
+    font-size: 11px;
+  }
+  .info {
+    width: 110%;
+    margin-bottom: 1%;
+
+  }
+  .main-about {
+    padding: 0px;
+  }
+  .round-number {
+    display: flex;
+    justify-content: center;
+  }
+  .register-btn {
+    padding: 5px 10px;
+    font-size: medium;
+    border-radius: 5px;
+  }
+  .hr1, .hr2{
+    width: 90%;
+  }
+  .rank {
+    font-size: 13px;
+  }
+  .line1, .line2 {
+    font-size: 11px;
+  }
+  .bg {
+    width: 90%;
+    margin-left: 0%;
+    margin-left: 5%;
+  }
+}
+
+
+
+/* buttn styles */
+
+/* From Uiverse.io by satyamchaudharydev */ 
+/* this button is inspired from this -- s://www.newline.co/pricing */
+.register-btn {
+  --width: 150px;
+  --timing: 2s;
+  border: 0;
+  width: var(--width);
+  padding-block: 1em;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1em;
+  background: rgb(64, 192, 87);
+  transition: all 0.2s;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.register-btn:hover {
+  background-image: linear-gradient(
+    to right,
+    rgb(250, 82, 82),
+    rgb(250, 82, 82) 16.65%,
+    rgb(190, 75, 219) 16.65%,
+    rgb(190, 75, 219) 33.3%,
+    rgb(76, 110, 245) 33.3%,
+    rgb(76, 110, 245) 49.95%,
+    rgb(64, 192, 87) 49.95%,
+    rgb(64, 192, 87) 66.6%,
+    rgb(250, 176, 5) 66.6%,
+    rgb(250, 176, 5) 83.25%,
+    rgb(253, 126, 20) 83.25%,
+    rgb(253, 126, 20) 100%,
+    rgb(250, 82, 82) 100%
+  );
+  animation: var(--timing) linear dance6123 infinite;
+  transform: scale(1.1) translateY(-1px);
+}
+
+@keyframes dance6123 {
+  to {
+    background-position: var(--width);
+  }
+}
+
+/* From Uiverse.io by nikk7007 */ 
+.button {
+  --color: #66B86A;
+  background-color: rgb(66, 177, 66);
+  padding: 0.5em 1.7em;
+  background-color: transparent;
+  border-radius: .3em;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: .5s;
+  font-weight: 400;
+  font-size: 17px;
+  border: 1px solid;
+  font-family: inherit;
+  text-transform: uppercase;
+  color: rgb(10, 25, 30);
+  z-index: 1;
+ }
+ 
+ .button::before, .button::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 50px;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  border-radius: 50%;
+  z-index: -1;
+  background-color: var(--color);
+  transition: 1s ease;
+ }
+ 
+ .button::before {
+  top: -1em;
+  left: -1em;
+ }
+ 
+ .button::after {
+  left: calc(100% + 1em);
+  top: calc(100% + 1em);
+ }
+ 
+ .button:hover::before, .button:hover::after {
+  height: 410px;
+  width: 410px;
+ }
+ 
+ .button:hover {
+  color: rgb(10, 25, 30);
+ }
+ 
+ .button:active {
+  filter: brightness(.8);
+ }
+ 

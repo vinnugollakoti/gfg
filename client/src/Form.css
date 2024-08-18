@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Teachers:ital,wght@0,400..800;1,400..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Reddit+Mono:wght@200..900&display=swap');
+.main-form {
+    width: 70%;
+    margin-left: 15%;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 7%;
+}
+.bg1 {
+    position: fixed;
+    margin-left: 29%;
+    margin-top: 33vh;
+    z-index: -1;
+    opacity: 50%; 
+  }
+h1 {
+    margin: 0px;
+}
+form {
+    margin-top: 4%;
+    width: 90%;
+    margin-left: 5%;
+}
+.form {
+    width: 58%;
+    background-color: white;
+    color: black;
+    padding-top: 2%;
+    padding-bottom: 4%;
+    
+    border-radius: 10px;
+}
+  .contact-blog {
+    margin-left: 4%;
+    width: 45%;
+}
+.font1 {
+    font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  padding-left: 2%;
+}
+.form-1, .form-2 {
+    margin-top: 4%;
+}
+label {
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    color: rgba(0, 0, 0, 0.769);
+    font-size: 13px;
+    font-weight: 400;
+  }
+  .input1 {
+    margin-top: 1.5%;
+    background-color: #f1f1f1;
+    border: none;
+    height: 35px;
+    width: 95%;
+    color: black;
+    padding-left: 10px;
+    border-radius: 3px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+  }
+  .checkbox {
+    margin-left: 2%;
+    margin-right: 2%;
+  }
+  .checkbox-div {
+    display: flex;
+    align-items: center;
+    margin-top: 1%;
+  }
+
+  /* caption div */
+  .caption1 {
+    font-family: "Teachers", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 50px;
+  }
+  .caption2 {
+    padding-top: 1.5rem;
+  font-family: "Reddit Mono", monospace;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  color: rgb(52, 52, 52);
+  }
+  .caption3{ 
+    font-family: "Teachers", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    margin-top: 4%;
+  }
+  .contacts-phone {
+    display: flex;
+    width: 30%;
+    align-items: center;
+    margin-top: 2%;
+  }
+  .phone {
+    height: 20px;
+  }
+  .message-text {
+    font-family: "Teachers", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  color: black;
+  padding-top: 3%;
+  }
+  @media (max-width: 600px) {
+
+    .main-form {
+        display: inline;
+    }
+    .form, .contact-blog {
+        width: 90%;
+        margin-left: 5%;
+    }
+    .contact-blog {
+        margin-top: 8%;
+    }
+    .contacts-phone {
+        width: 40%;
+    }
+    .phone {
+        height: 15px;
+    }
+    .bg1 {
+        width: 90%;
+        margin-left: 0%;
+        margin-left: 5%;
+      }
+}

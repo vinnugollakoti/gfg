@@ -4,10 +4,21 @@ import logo from '../assets/logo.webp'
 import profile from '../assets/acclogo.webp'
 import formlogo from '../assets/form.png'
 import limitedlogo from '../assets/limitedppl.png'
+import { useNavigate } from "react-router-dom"
+import bg from "../assets/bg.png"
+// import {useNavigate} from "react-router-dom"
 const Algorithmist = () => {
+    const navigate = useNavigate()
+    // const navigate = useNavigate()
+    const handleRegister = () => {
+        // window.location.href = "https://forms.gle/h9uuwwvoKM2mGSem9";
+        navigate("/form")
+    }
   return (
     <div>
-        <nav className="navbar">
+        {/* background image */}
+        <img src={bg} alt="" className="bg" />
+        {/* <nav className="navbar">
             <div className="nav-1">
                 <img src={logo} alt="" className="logo"/>
             </div>
@@ -17,57 +28,69 @@ const Algorithmist = () => {
                 <div className="nav-name"><p>Members</p></div>
                 <div><img src={profile} alt=""  className="profilelogo"/></div>
             </div>
-        </nav>
+        </nav> */}
       <div>
         <img src={coverphoto1} alt="" className="coverphoto" />
       </div>
-      <div>
+      <div className="register-modal">
       <div className="model">
         <center>
-        <h1 className="heading">Algorithmist <strong>2024</strong> </h1></center>
+        <h1 className="heading">Student Member Enrolment Program</h1></center>
         <div>
             <div className="about">
                 <div>
-                <p>Algorithmist 24" is a series of coding events organized by the GFG KARE Student Chapter in sponsorship with GeeksforGeeks at Kalasalingam Academy of Research and Education. The competition comprises five rounds, each progressively raising the bar in terms of complexity and challenge. Participants will become familiar with 50 different algorithms and gain practical skills to apply them in real-world scenarios.Cash prizes and exciting rewards from GeeksforGeeks are provided for the top three performers in each round.</p>
+                <p className="para1">We are delighted to inform you that <strong>GFG KARE STUDENT CHAPTER</strong> is excited to expand
+                the community through <strong>Student Enrolment Drive</strong> with a passionate group of tech. enthusiasts and developing a culture of continuous learning.</p>
+
+                <p className="para1"><strong>GFG KARE Student Chapter</strong> is always aims to create a community of like-minded individuals who are passionate about technology and innovation. This chapter provides a platform for every student to enhance their coding, technical, personality and communication skills.</p>
+                <p className="para1">The students can select the interested domain during the Registration such as <strong>Technical</strong>,<strong> Web Development</strong>, <strong>Graphic Designing</strong>, <strong>Article Writing</strong>, and <strong>Marketing</strong> Based on their performance in the particular domain, students will be promoted to core learn team lead roles for the future tenures.</p>
+                <p className="para1">This membership fee is also set at a nominal value to make it more available to all students, and this fee used in the benefits of members and enhancement of chapter’s activities, resources and growth.</p>
                 </div>
-            <div>
-                <div className="about-1">
-                    <div><center>
-                        <h3>▲ limited Registration</h3>
-                        
-                        <p>Registration closed</p></center>
-                    </div>
-                    <div><center>
-                        <h3>▲ Team size</h3>
-                        <p>Individual</p></center>
-                    </div>
-                    <div><center>
-                        <h3>📝 Registration deadline</h3>
-                        <p>closed</p></center>
-                    </div>
-                    <div><center>
-                        <h3>💲 Entry fee</h3>
-                        <p>Free</p></center>
-                    </div>
-                </div>
-                <center>
-                <div className="about-2">
-                    <div>
-                        <h4>Apply here {"->>"}</h4>
-                    </div>
-                    <div>
-                    <button className="registrationbtn">Registration closed</button>
-                    </div>
-                </div></center>
             </div>
-            </div>
-            
         </div>
-       
       </div>
+      {/* code */}
+      <div className="card">
+            <div className="card-content">
+              <div className="info">
+                <div className="info-item">
+                  <h3 className="h3">
+                    {/* <img
+                      src={limitedlogo}
+                      alt="Limited Registration"
+                      className="icon"
+                    /> */}
+                    Limited Registration:
+                  </h3>
+                  <p className="p">300 Students</p>
+                </div>
+                <div className="info-item">
+                  <h3 className="h3">
+                    {/* <img src={formlogo} alt="Team Size" className="icon" /> */}
+                    Team Size:
+                  </h3>
+                  <p className="p">Individual</p>
+                </div>
+                <div className="info-item">
+                  <h3 className="h3">Registration Deadline:</h3>
+                  <p className="deadline p">07-08-2024, 8:00 PM</p>
+                </div>
+                <div className="info-item">
+                  <h3 className="h3">Registration Fee:</h3>
+                  <p className="p">₹100/-</p>
+                </div>
+              </div>
+              <div className="register">
+                {/* <button className="register-btn" onClick={handleRegister}></button> */}
+                <button  className="register-btn" onClick={handleRegister}>Register</button>
+              </div>
+            </div>
+          </div>
+      </div>
+
       <div className="model2">
         <center>
-        <h1 className="heading">ROUND DETAILS</h1>
+        <h1 className="heading1">The Membership Benefits include:</h1>
         </center>
         <div className="rounds-details">
             <div className="about">
@@ -76,8 +99,7 @@ const Algorithmist = () => {
                     <h1 className="rank">01</h1>
                 </div>
                 <div className="round-about">
-                    <h3>Quiz</h3>
-                    <p>Get ready for a fun knowledge challenge! You'll answer 60 questions about 50 algorithms. Can you beat the clock?</p>
+                    <h3>Boost Tech–Non technical Skill</h3>
                 </div>
             </div>
             <div className="main-about">
@@ -85,8 +107,7 @@ const Algorithmist = () => {
                     <h1 className="rank">02</h1>
                 </div>
                 <div className="round-about">
-                    <h3>Quiz</h3>
-                    <p>Share your coding expertise! During the Seminar round from Jan 7 to 9, 2024, you'll have 4-5 minutes to present an algorithm. Be the start of the show!</p>
+                    <h3>Personality Development</h3>
                 </div>
             </div>
             <div className="main-about">
@@ -94,8 +115,7 @@ const Algorithmist = () => {
                     <h1 className="rank">03</h1>
                 </div>
                 <div className="round-about">
-                    <h3>Quiz</h3>
-                    <p>Work together to solve problems in our Q&A Formation Round on Jan 28, 2024. Create tricky questions for others to answer. How good is your teamwork?</p>
+                    <h3>Support and career guidance</h3>
                 </div>
             </div>
             <div className="main-about">
@@ -103,8 +123,7 @@ const Algorithmist = () => {
                     <h1 className="rank">04</h1>
                 </div>
                 <div className="round-about">
-                    <h3>Quiz</h3>
-                    <p>Time to tackle tricky bugs! In the Debugging round of Feb 28, 2024, you'll solve 10 questions. Can you outsmart the code?</p>
+                    <h3>Competitions and Hackathons</h3>
                 </div>
             </div>
             <div className="main-about">
@@ -112,14 +131,66 @@ const Algorithmist = () => {
                     <h1 className="rank">05</h1>
                 </div>
                 <div className="round-about">
-                    <h3>Quiz</h3>
-                    <p>It's the ultimate showdown! Join the Grand Finale on Mar 20, 2024, and show off your coding skills. Be the coding champion!</p>
+                    <h3>Internship Opportunity [Based on the performance]</h3>
+                </div>
+            </div>
+            <div className="main-about">
+                <div className="round-number">
+                    <h1 className="rank">06</h1>
+                </div>
+                <div className="round-about">
+                    <h3>Offline sessions in</h3>
+                </div>
+            </div>
+            <div className="main-about">
+                <div className="round-number">
+                    <h1 className="rank">07</h1>
+                </div>
+                <div className="round-about">
+                    <h3>Industrial Experts talk</h3>
+                </div>
+            </div>
+            <div className="main-about">
+                <div className="round-number">
+                    <h1 className="rank">08</h1>
+                </div>
+                <div className="round-about">
+                    <h3>Free workshop & webinars and lot more opportunities</h3>
                 </div>
             </div>
             </div>
         </div>
         </div>
-    </div>
+        <hr className="hr1" />
+        <div className="contacts">
+            <p className="line1"><i>For any further information and doubts contact : </i></p>
+            <p className="line2">M.M.Navadeep - +91 70750 72880</p>
+            <p className="line2">S.Sabari - +91 8754605197</p>
+            <p className="line2">P.Venkateswara Rao - +91 93981 07277</p>
+            <p className="line2">G.Prasanthi - +91 9032772680</p>
+        </div>
+        <hr className="hr2" />
+        <div className="contacts2">
+            <div className="contacts2-1">
+                <center>
+                <p className="line2">Faculty Coordinators</p>
+                <p className="line2">R.Rajasekhar & R.Shanmukapriya</p>
+                </center>
+            </div>
+            <div className="contacts2-1">
+                <center>
+                <p className="line2">Dr. N. Suresh Kumar</p>
+                <p className="line2">Professor & HOD/CSEa</p>
+                </center>
+            </div>
+            <div className="contacts2-1">
+                <center>
+                <p className="line2">Dr. P. Deepalakshmi</p>
+                <p className="line2">Professor & Dean/SoC</p>
+                </center>
+            </div>
+        </div>
+
     </div>
   )
 }
