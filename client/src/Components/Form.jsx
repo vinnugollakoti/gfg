@@ -35,7 +35,7 @@ const Form = () => {
         }
 
         setLoading(true)
-        axios.post("http://localhost:3001/register", {
+        axios.post("https://gfg-cueb.onrender.com/register", {
             fullname,
             registrationno,
             email,

@@ -129,6 +129,7 @@ const emailStyles = `
     }
 });
 
+app.get("/",(res,req)=>{res.send("hi")})
 
 
 mongoose.connect(mongoURI)
