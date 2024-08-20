@@ -65,19 +65,12 @@ const Algorithmist = () => {
                   <p className="p">300 Students</p>
                 </div>
                 <div className="info-item">
-                  <h3 className="h3">
-                    {/* <img src={formlogo} alt="Team Size" className="icon" /> */}
-                    Team Size:
-                  </h3>
-                  <p className="p">Individual</p>
-                </div>
-                <div className="info-item">
                   <h3 className="h3">Registration Deadline:</h3>
                   <p className="deadline p">07-08-2024, 8:00 PM</p>
                 </div>
                 <div className="info-item">
                   <h3 className="h3">Registration Fee:</h3>
-                  <p className="p">₹100/-</p>
+                  <p className="p">Free</p>
                 </div>
               </div>
               <div className="register">
@@ -90,7 +83,7 @@ const Algorithmist = () => {
 
       <div className="model2">
         <center>
-        <h1 className="heading1">The Membership Benefits include:</h1>
+        <h1 className="heading1">Membership Benefits</h1>
         </center>
         <div className="rounds-details">
             <div className="about">

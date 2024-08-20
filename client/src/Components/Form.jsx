@@ -79,7 +79,7 @@ const Form = () => {
       <img src={bg} alt="" className="bg1" />
       <div className="main-form">
         <div className="form">
-            <h1 className="font1">REGISTRATION FORM</h1>
+        <h1 className="font1">REGISTRATION FORM</h1>
             <form onSubmit={handleSubmit}>
                 <div className="form-1">
                 <label htmlFor="text">Your Full Name :</label><br />
