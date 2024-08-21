@@ -28,6 +28,11 @@ const Contact = new mongoose.Schema({
     domain : {
         type: String,
         required: true
+    },
+    additionalPreferences: {
+        ML: Boolean,
+        DSA: Boolean,
+        GATE: Boolean
     }
 })
 

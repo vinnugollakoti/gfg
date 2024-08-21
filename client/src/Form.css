@@ -30,6 +30,7 @@ form {
     color: black;
     padding-top: 2%;
     padding-bottom: 4%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     
     border-radius: 10px;
 }
@@ -46,6 +47,12 @@ form {
 }
 .form-1, .form-2 {
     margin-top: 4%;
+}
+.form-1-1, .form-1-2 {
+  width: 45%;
+}
+.form-1-2 {
+  margin-right: 5%;
 }
 label {
     font-family: "Poppins", sans-serif;
@@ -67,7 +74,23 @@ label {
     font-family: "Poppins", sans-serif;
     font-weight: 300;
   }
+  .input1-1 {
+    margin-top: 1.5%;
+    background-color: #f1f1f1;
+    border: none;
+    height: 35px;
+    width: 100%;
+    color: black;
+    padding-left: 10px;
+    border-radius: 3px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+  }
   .checkbox {
+    margin-left: 2%;
+    margin-right: 2%;
+  }
+  .checkbox-1 {
     margin-left: 2%;
     margin-right: 2%;
   }
@@ -76,7 +99,11 @@ label {
     align-items: center;
     margin-top: 1%;
   }
-
+  .form-div-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
   /* caption div */
   .caption1 {
     font-family: "Teachers", sans-serif;

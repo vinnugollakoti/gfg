@@ -9,15 +9,54 @@ import bg from "../assets/bg.png"
 // import {useNavigate} from "react-router-dom"
 const Algorithmist = () => {
     const navigate = useNavigate()
-    // const navigate = useNavigate()
     const handleRegister = () => {
-        // window.location.href = "https://forms.gle/h9uuwwvoKM2mGSem9";
         navigate("/form")
     }
+
+    useEffect(() => {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("show");
+            } else {
+              entry.target.classList.remove("show");
+            }
+          });
+        });
+    
+        const hiddenElements = document.querySelectorAll(".hidden");
+        hiddenElements.forEach((el) => observer.observe(el));
+    
+        // Cleanup function to disconnect the observer when component unmounts
+        return () => {
+          hiddenElements.forEach((el) => observer.unobserve(el));
+        };
+      }, []);
+    
+    
+      useEffect(() => {
+        const observer2 = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("show2");
+            } else {
+              entry.target.classList.remove("show2");
+            }
+          });
+        });
+    
+        const hiddenElements = document.querySelectorAll(".hidden2");
+        hiddenElements.forEach((el) => observer2.observe(el));
+    
+        return () => {
+          hiddenElements.forEach((el) => observer2.unobserve(el));
+        };
+      }, []);
+
   return (
     <div>
         {/* background image */}
-        <img src={bg} alt="" className="bg" />
+        {/* <img src={bg} alt="" className="bg" /> */}
         {/* <nav className="navbar">
             <div className="nav-1">
                 <img src={logo} alt="" className="logo"/>
@@ -33,7 +72,7 @@ const Algorithmist = () => {
         <img src={coverphoto1} alt="" className="coverphoto" />
       </div>
       <div className="register-modal">
-      <div className="model">
+      <div className="model hidden">
         <center>
         <h1 className="heading">Student Member Enrolment Program</h1></center>
         <div>
@@ -50,7 +89,7 @@ const Algorithmist = () => {
         </div>
       </div>
       {/* code */}
-      <div className="card">
+      <div className="card hidden2">
             <div className="card-content">
               <div className="info">
                 <div className="info-item">
@@ -81,7 +120,7 @@ const Algorithmist = () => {
           </div>
       </div>
 
-      <div className="model2">
+      <div className="model2 hidden">
         <center>
         <h1 className="heading1">Membership Benefits</h1>
         </center>

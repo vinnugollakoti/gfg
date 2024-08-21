@@ -51,7 +51,8 @@ const emailStyles = `
 
 
   app.post("/register", async (req, res) => {
-    const { fullname, registrationno, email, year, department, mobileno, domain } = req.body;
+    const { fullname, registrationno, email, year, department, mobileno, domain, additionalPreferences } = req.body;
+
     if (!fullname || !registrationno || !email || !year || !department || !mobileno || !domain) {
         return res.status(400).json({ message: "All fields are required!" });
     }
@@ -66,35 +67,87 @@ const emailStyles = `
         "Event Management": "https://chat.whatsapp.com/JHdyo96oEBAAjc7X0cz0pG"
     };
 
-    const whatsappLink = domainLinks[domain] || "#";
+    // Define additional preferences links
+    const additionalLinks = {
+        ML: "https://chat.whatsapp.com/CV1w56clzY4CbqZIXt×NOb",
+        DSA: "https://chat.whatsapp.com/HPFqcCNqPVjlHnYqMkpfHG",
+        GATE: "https://chat.whatsapp.com/EDmiXkYBuRqOwdGiQvyCSo"
+    };
 
-    const emailHTML = `
-    <div class="main">
-      <center>
-        <h2 class="heading1">Hey ${fullname}, you are registered successfully 🎉</h2>
-      </center>
-      <div class="main2">
-        <center>
-          <h3><strong>Name of the student: </strong>${fullname}</h3>
-          <h3><strong>Registration Number: </strong>${registrationno}</h3>
-          <h3><strong>Email: </strong>${email}</h3>
-          <h3><strong>Mobile no (WhatsApp): </strong>${mobileno}</h3>
-          <h3><strong>Year: </strong>${year}</h3>
-          <h3><strong>Department: </strong>${department}</h3>
-          <h3><strong>Your chosen Domain: </strong>${domain}</h3>
-          <h3><strong>Join this WhatsApp link: <a href="${whatsappLink}">Click here 👈</a></strong></h3>
-        </center>
-      </div>
-      <div class="main">
-        <center><h1>Greetings from GFG TEAM - KARE</h1></center>
-      </div>
-    </div>`;
+    // Determine the WhatsApp link based on the domain
+    let whatsappLink = domainLinks[domain] || "#";
+    let additionalPreferencesHTML = '';
+
+    // Construct additional preferences email content
+    if (Array.isArray(additionalPreferences)) {
+        additionalPreferences.forEach(preference => {
+            const link = additionalLinks[preference];
+            if (link) {
+                additionalPreferencesHTML += `<h3><strong>${preference}: </strong><a href="${link}">Join here 👈</a></h3>`;
+            }
+        });
+    }
+
+    let emailHTML;
+
+    // Check domain and construct email content accordingly
+    if (domain === "Technical") {
+        emailHTML = `
+        <div class="main">
+          <center>
+            <h2 class="heading1">Welcome to GFG KARE STUDENT CHAPTER - Your Spot Confirmation!</h2>
+          </center>
+          <div class="main2">
+              <h3>Dear ${fullname},</h3>
+              <p>Thank you for registering with GFGKARE! We are thrilled to welcome you to our community of passionate and talented individuals.</p>
+              <p>We are pleased to confirm that you have opted for the role of Technical. This role plays a crucial part in our mission to enhance knowledge through mentorship. Here are the additional preferences links you have chosen:</p>
+              ${additionalPreferencesHTML} <!-- Include additional preferences links -->
+              <h3><strong>Here’s what you can expect next:</strong></h3>
+              <ul>
+                <li>Orientation Session: We will be hosting an orientation session. This will be a great opportunity for you to learn more about your role and meet fellow members.</li>
+                <li>You will be assigned to a team of like-minded individuals. Your team lead will reach out to you shortly to introduce themselves and discuss upcoming sessions.</li>
+              </ul>
+              <h3><strong>Stay Connected</strong></h3>
+              <p>Follow us on Social Media: <a href="https://www.linkedin.com/company/gfg-kare-student-chapter/posts/?feedView=all">Linkedin</a></p>
+              <p>If you have any questions or need further assistance, please don’t hesitate to reach out to us at <a href="mailto:gfgkarestudentchapter@klu.ac.in">gfgkarestudentchapter@klu.ac.in</a> or visit our website <a href="https://gfgkare.github.io">gfgkare.github.io</a></p>
+          </div>
+          <div class="main">
+            <center><h1>Greetings from GFG TEAM - KARE</h1></center>
+          </div>
+        </div>`;
+    } else {
+        emailHTML = `
+        <div class="main">
+          <center>
+            <h2 class="heading1">Welcome to GFG KARE STUDENT CHAPTER - Your Spot Confirmation!</h2>
+          </center>
+          <div class="main2">
+              <h3>Dear ${fullname},</h3>
+              <p>Thank you for registering with GFGKARE! We are thrilled to welcome you to our community of passionate and talented individuals.</p>
+              <p>We are pleased to confirm that you have opted for the role of ${domain}. This role plays a crucial part in our mission to enhance knowledge through mentorship. Here is the WhatsApp group link for the role you have chosen:</p>
+              <h3><strong>${domain}: </strong><a href="${whatsappLink}">Join here 👈</a></h3>
+              ${additionalPreferencesHTML} <!-- Include additional preferences links -->
+              <h3><strong>Here’s what you can expect next:</strong></h3>
+              <ul>
+                <li>Orientation Session: We will be hosting an orientation session. This will be a great opportunity for you to learn more about your role and meet fellow members.</li>
+                <li>You will be assigned to a team of like-minded individuals. Your team lead will reach out to you shortly to introduce themselves and discuss upcoming sessions.</li>
+              </ul>
+              <h3><strong>Stay Connected</strong></h3>
+              <p>Follow us on Social Media: <a href="https://www.linkedin.com/company/gfg-kare-student-chapter/posts/?feedView=all">Linkedin</a></p>
+              <p>If you have any questions or need further assistance, please don’t hesitate to reach out to us at <a href="mailto:gfgkarestudentchapter@klu.ac.in">gfgkarestudentchapter@klu.ac.in</a> or visit our website <a href="https://gfgkare.github.io">gfgkare.github.io</a></p>
+          </div>
+          <div class="main">
+            <center><h1>Greetings from GFG TEAM - KARE</h1></center>
+          </div>
+        </div>`;
+    }
 
     try {
         const user = await Data.findOne({ email });
         if (user) {
             return res.status(400).json({ message: "🚫 You are already registered!" });
         }
+        
         const newRegistration = new Data({
             fullname,
             registrationno,
@@ -102,14 +155,15 @@ const emailStyles = `
             year,
             department,
             mobileno,
-            domain
+            domain,
+            additionalPreferences // Store additional preferences as an array
         });
         await newRegistration.save();
 
         var mailOptions = {
             from: 'gfgkarestudentchapter@gmail.com',
             to: email, 
-            subject: 'Hurry! Your Registration for student-enrollment is successful!',
+            subject: 'Welcome to GFG KARE STUDENT CHAPTER - Your Spot Confirmation!',
             html: emailStyles + emailHTML
         };
           
@@ -128,6 +182,11 @@ const emailStyles = `
         return res.status(500).json({ message: "Internal server error" });
     }
 });
+
+
+
+
+
 
 app.get("/", (req, res) => {
   res.send("hi");
