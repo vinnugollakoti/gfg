@@ -16,6 +16,21 @@ const Form = () => {
     const [message, setMessage] = useState("");
     const [errmsg, setErrmsg] = useState("");
     const [fullname, setFullname] = useState("");
+    const [photo, setPhoto] = useState(null);
+    const [photoPreview, setPhotoPreview] = useState("");
+
+    const handlePhotoChange = (e) => {
+        const file = e.target.files[0];
+        setPhoto(file);
+    
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPhotoPreview(reader.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
 
     const [checkboxes, setCheckboxes] = useState({
         agree1: false,
@@ -39,16 +54,38 @@ const Form = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        // Ensure at least one preference is selected if domain is Technical
+        
+        // Log the form data to check values
+        console.log({
+            fullname,
+            registrationno,
+            email,
+            year,
+            department,
+            mobileno,
+            domain,
+            photo,
+            additionalPreferences: JSON.stringify(Object.keys(additionalCheckboxes).filter(key => additionalCheckboxes[key])),
+            checkboxes,
+        });
+    
+        // Check if all required fields are filled
+        if (!fullname || !registrationno || !email || !year || !department || !mobileno || !domain) {
+            alert("Please fill in all required fields.");
+            return;
+        }
+    
         if (domain === "Technical" && selectedCount < 1) {
             alert("Please select at least 1 additional preference.");
             return;
         }
     
-        // Ensure exactly 2 preferences are selected if domain is Technical
         if (domain === "Technical" && selectedCount > 2) {
             alert("You can select a maximum of 2 additional preferences.");
+            return;
+        }
+        if (!photo) {
+            alert("Please upload a photo.");
             return;
         }
     
@@ -57,22 +94,29 @@ const Form = () => {
             alert("Please accept all terms and conditions before submitting.");
             return;
         }
-
+    
         setLoading(true);
-        axios.post("https://gfg-cueb.onrender.com/register", {
-            fullname,
-            registrationno,
-            email,
-            year,
-            department,
-            mobileno,
-            domain,
-            additionalPreferences: Object.keys(additionalCheckboxes).filter(key => additionalCheckboxes[key])
+    
+        const formData = new FormData();
+        formData.append("fullname", fullname);
+        formData.append("registrationno", registrationno);
+        formData.append("email", email);
+        formData.append("year", year);
+        formData.append("department", department);
+        formData.append("mobileno", mobileno);
+        formData.append("domain", domain);
+        formData.append("additionalPreferences", JSON.stringify(Object.keys(additionalCheckboxes).filter(key => additionalCheckboxes[key])));
+        if (photo) {
+            formData.append("photo", photo);
+        }
+    
+        axios.post("http://localhost:3001/register", formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
         })
         .then((res) => {
             console.log(res.data);
-            console.log("Form submitted with values:");
-            console.log({ fullname, registrationno, email, year, department, mobileno, domain});
             setLoading(false);
             setMessage("✔️ Your registration was successful!");
             resetForm();
@@ -88,6 +132,8 @@ const Form = () => {
             }
         });
     };
+    
+    
 
     const handleCheckboxChange = (e) => {
         const { name, checked } = e.target;
@@ -155,6 +201,8 @@ const Form = () => {
             agree4: false,
             agree5: false,
         });
+        setPhoto(null); // Clear the photo
+        setPhotoPreview(""); // Clear the photo preview
     };
 
     return (
@@ -226,6 +274,11 @@ const Form = () => {
                                 <label htmlFor="GATE" className="custom-checkbox-label">GATE</label><br />
                             </div>
                         )}
+                        <div className="form-1">
+                            <label htmlFor="photo">Upload a Photo:</label><br />
+                            <input type="file"  id="photo" name="photo" accept="image/*" onChange={handlePhotoChange} />
+                            {photoPreview && <img src={photoPreview} alt="Photo Preview" style={{ width: "100px", height: "100px", marginTop: "10px" }} />}
+                        </div>
                         <div className="form-1">
                             <label>I understand that being an active member is essential for the growth of the student chapter.</label><br />
                             <input type="checkbox" id="agree1" name="agree1" className="checkbox" checked={checkboxes.agree1} onChange={handleCheckboxChange} />

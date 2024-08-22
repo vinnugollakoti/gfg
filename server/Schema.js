@@ -1,39 +1,21 @@
-const mongoose = require("mongoose")
+// server/Schema.js
 
-const Contact = new mongoose.Schema({
-    fullname : {
-        type: String,
-        required: true
-    },
-    registrationno : {
-        type: String,
-        required : true
-    },
-    email : {
-        type: String,
-        required: true
-    },
-    year : {
-        type: String,
-        required: true
-    },
-    department : {
-        type: String,
-        required : true
-    },
-    mobileno : {
-        type: String,
-        required: true
-    },
-    domain : {
-        type: String,
-        required: true
-    },
-    additionalPreferences: {
-        ML: Boolean,
-        DSA: Boolean,
-        GATE: Boolean
-    }
-})
+const mongoose = require('mongoose');
 
-module.exports = mongoose.model("Data", Contact, "data")
+// Define the schema for the contact
+const contactSchema = new mongoose.Schema({
+    fullname: String,
+    registrationno: String,
+    email: String,
+    year: String,
+    department: String,
+    mobileno: String,
+    domain: String,
+    additionalPreferences: [String], // Array of strings for preferences
+    photo: String // Path to the photo
+});
+
+// Create and export the Contact model
+const Contact = mongoose.model('Contact', contactSchema);
+
+module.exports = Contact;

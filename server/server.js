@@ -1,14 +1,23 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const Data = require("../server/Schema")
-const nodemailer = require("nodemailer")
+const Contact = require("./Schema"); // Import the Contact model
+const nodemailer = require("nodemailer");
+const multer = require("multer");
+const fs = require("fs")
+const path = require("path");
+
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
 const mongoURI = "mongodb+srv://vinnugollakoti:vinnu1244@cluster0.cwivpr4.mongodb.net/gfg";
+
+const uploadsDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+    fs.mkdirSync(uploadsDir, { recursive: true });
+}
 
 var transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -17,7 +26,8 @@ var transporter = nodemailer.createTransport({
       pass: 'gswrefjeexlhteyu'
     }
 });
-// css styles for email content
+
+// Email styles (unchanged from your code)
 const emailStyles = `
 <style>
     .main {
@@ -49,15 +59,43 @@ const emailStyles = `
     }
   </style>`;
 
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, "uploads/");
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + path.extname(file.originalname));
+    }
+});
 
-  app.post("/register", async (req, res) => {
+const upload = multer({ storage: storage });
+
+const sendEmail = async (to, subject, htmlContent) => {
+  const mailOptions = {
+      from: 'gfgkarestudentchapter@gmail.com',
+      to,
+      subject,
+      html: htmlContent
+  };
+
+  try {
+      await transporter.sendMail(mailOptions);
+      console.log(`Email sent to ${to}`);
+  } catch (error) {
+      console.error(`Error sending email to ${to}:`, error);
+      throw error;  // Rethrow the error to be handled by the calling code
+  }
+};
+
+
+app.post("/register", upload.single("photo"), async (req, res) => {
     const { fullname, registrationno, email, year, department, mobileno, domain, additionalPreferences } = req.body;
+    const photo = req.file ? req.file.path : ""; // Path to the uploaded photo
 
     if (!fullname || !registrationno || !email || !year || !department || !mobileno || !domain) {
         return res.status(400).json({ message: "All fields are required!" });
     }
 
-    // Define WhatsApp links for each domain
     const domainLinks = {
         "Technical": "https://chat.whatsapp.com/I49e5b3RtNxJBI1FFfcJf3",
         "Web Development": "https://chat.whatsapp.com/Cd3idzMDnAj6O8XyNmCFAt",
@@ -67,18 +105,15 @@ const emailStyles = `
         "Event Management": "https://chat.whatsapp.com/JHdyo96oEBAAjc7X0cz0pG"
     };
 
-    // Define additional preferences links
     const additionalLinks = {
         ML: "https://chat.whatsapp.com/CV1w56clzY4CbqZIXt×NOb",
         DSA: "https://chat.whatsapp.com/HPFqcCNqPVjlHnYqMkpfHG",
         GATE: "https://chat.whatsapp.com/EDmiXkYBuRqOwdGiQvyCSo"
     };
 
-    // Determine the WhatsApp link based on the domain
     let whatsappLink = domainLinks[domain] || "#";
     let additionalPreferencesHTML = '';
 
-    // Construct additional preferences email content
     if (Array.isArray(additionalPreferences)) {
         additionalPreferences.forEach(preference => {
             const link = additionalLinks[preference];
@@ -90,7 +125,6 @@ const emailStyles = `
 
     let emailHTML;
 
-    // Check domain and construct email content accordingly
     if (domain === "Technical") {
         emailHTML = `
         <div class="main">
@@ -124,9 +158,9 @@ const emailStyles = `
           <div class="main2">
               <h3>Dear ${fullname},</h3>
               <p>Thank you for registering with GFGKARE! We are thrilled to welcome you to our community of passionate and talented individuals.</p>
-              <p>We are pleased to confirm that you have opted for the role of ${domain}. This role plays a crucial part in our mission to enhance knowledge through mentorship. Here is the WhatsApp group link for the role you have chosen:</p>
-              <h3><strong>${domain}: </strong><a href="${whatsappLink}">Join here 👈</a></h3>
-              ${additionalPreferencesHTML} <!-- Include additional preferences links -->
+              <p>We are pleased to confirm that you have opted for the role of ${domain}. This role plays a crucial part in our mission to enhance knowledge through mentorship. Here is the WhatsApp group link:</p>
+              <h3><strong>WhatsApp Link:</strong></h3>
+              <a href="${whatsappLink}">Join here 👈</a>
               <h3><strong>Here’s what you can expect next:</strong></h3>
               <ul>
                 <li>Orientation Session: We will be hosting an orientation session. This will be a great opportunity for you to learn more about your role and meet fellow members.</li>
@@ -142,51 +176,36 @@ const emailStyles = `
         </div>`;
     }
 
+    const newContact = new Contact({
+        fullname,
+        registrationno,
+        email,
+        year,
+        department,
+        mobileno,
+        domain,
+        additionalPreferences: JSON.parse(additionalPreferences),
+        photo
+    });
+
     try {
-        const user = await Data.findOne({ email });
+      const user = await Contact.findOne({ email });
         if (user) {
             return res.status(400).json({ message: "🚫 You are already registered!" });
         }
-        
-        const newRegistration = new Data({
-            fullname,
-            registrationno,
-            email,
-            year,
-            department,
-            mobileno,
-            domain,
-            additionalPreferences // Store additional preferences as an array
-        });
-        await newRegistration.save();
+        const savedContact = await newContact.save();
+        console.log("New contact saved:", savedContact);
 
-        var mailOptions = {
-            from: 'gfgkarestudentchapter@gmail.com',
-            to: email, 
-            subject: 'Welcome to GFG KARE STUDENT CHAPTER - Your Spot Confirmation!',
-            html: emailStyles + emailHTML
-        };
-          
-        transporter.sendMail(mailOptions, function(error, info) {
-            if (error) {
-                console.log(error);
-            } else {
-                console.log('Email sent: ' + info.response);
-            }
-        });
+        await sendEmail(email, "Registration Confirmation", emailHTML);
 
-        return res.json({ message: "You are registered successfully!" });
-
+        res.status(200).json({ message: "Registration successful, and email sent!" });
     } catch (error) {
-        console.error("Error in storing the user in database:", error);
-        return res.status(500).json({ message: "Internal server error" });
+        console.error("Error saving contact or sending email:", error);
+        res.status(500).json({ message: "Internal Server Error" });
     }
 });
 
-
-
-
-
+app.use('/uploads', express.static('uploads'));
 
 app.get("/", (req, res) => {
   res.send("hi");
@@ -195,7 +214,6 @@ app.get("/", (req, res) => {
 mongoose.connect(mongoURI)
 .then(() => console.log("Connected to MongoDB"))
 .catch(err => console.error("Failed to connect to MongoDB", err));
-
 
 app.listen(3001, () => {
     console.log("Server is running on port 3001");
