@@ -18,12 +18,14 @@ const Form = () => {
     const [fullname, setFullname] = useState("");
     const [photo, setPhoto] = useState(null);
     const [photoPreview, setPhotoPreview] = useState("");
+    const [imageName,setimageName]=useState("")
 
     const handlePhotoChange = (e) => {
         const file = e.target.files[0];
         setPhoto(file);
     
         if (file) {
+            setimageName(file.name)
             const reader = new FileReader();
             reader.onloadend = () => {
                 setPhotoPreview(reader.result);
@@ -85,7 +87,7 @@ const Form = () => {
             return;
         }
         if (!photo) {
-            alert("Please upload a photo.");
+            alert("Please upload your profile image.");
             return;
         }
     
@@ -275,9 +277,14 @@ const Form = () => {
                             </div>
                         )}
                         <div className="form-1">
-                            <label htmlFor="photo">Upload a Photo:</label><br />
-                            <input type="file"  id="photo" name="photo" accept="image/*" onChange={handlePhotoChange} />
+                            <label htmlFor="photo">Upload your profile image (.jpg, .png):</label><br />
+                            <div className="form-1-3">
+                            <input type="file"  id="photo" className="hide" name="photo" accept="image/*" onChange={handlePhotoChange} />
+                            <div>
                             {photoPreview && <img src={photoPreview} alt="Photo Preview" style={{ width: "100px", height: "100px", marginTop: "10px" }} />}
+                            <p>{imageName}</p>
+                            </div>
+                            </div>
                         </div>
                         <div className="form-1">
                             <label>I understand that being an active member is essential for the growth of the student chapter.</label><br />
