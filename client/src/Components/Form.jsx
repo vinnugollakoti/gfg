@@ -279,11 +279,15 @@ const Form = () => {
                         <div className="form-1">
                             <label htmlFor="photo">Upload your profile image (.jpg, .png):</label><br />
                             <div className="form-1-3">
+                                
                             <input type="file"  id="photo" className="hide" name="photo" accept="image/*" onChange={handlePhotoChange} />
+                            <center>
                             <div>
                             {photoPreview && <img src={photoPreview} alt="Photo Preview" style={{ width: "100px", height: "100px", marginTop: "10px" }} />}
-                            <p>{imageName}</p>
+                            <p className="line2">{imageName}</p>
+                            
                             </div>
+                            </center>
                             </div>
                         </div>
                         <div className="form-1">
