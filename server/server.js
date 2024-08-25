@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const Contact = require("./Schema"); // Import the Contact model
 const nodemailer = require("nodemailer");
-const multer = require("multer");
 const fs = require("fs")
 const path = require("path");
 
@@ -14,10 +13,6 @@ app.use(express.json());
 
 const mongoURI = "mongodb+srv://vinnugollakoti:vinnu1244@cluster0.cwivpr4.mongodb.net/gfg";
 
-const uploadsDir = path.join(__dirname, 'uploads');
-if (!fs.existsSync(uploadsDir)) {
-    fs.mkdirSync(uploadsDir, { recursive: true });
-}
 
 var transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -27,7 +22,6 @@ var transporter = nodemailer.createTransport({
     }
 });
 
-// Email styles (unchanged from your code)
 const emailStyles = `
 <style>
     .main {
@@ -59,23 +53,13 @@ const emailStyles = `
     }
   </style>`;
 
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, "uploads/");
-    },
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + path.extname(file.originalname));
-    }
-});
-
-const upload = multer({ storage: storage });
 
 const sendEmail = async (to, subject, htmlContent) => {
   const mailOptions = {
       from: 'gfgkarestudentchapter@gmail.com',
       to,
       subject,
-      html: htmlContent
+      html: htmlContent + emailStyles
   };
 
   try {
@@ -83,18 +67,14 @@ const sendEmail = async (to, subject, htmlContent) => {
       console.log(`Email sent to ${to}`);
   } catch (error) {
       console.error(`Error sending email to ${to}:`, error);
-      throw error;  // Rethrow the error to be handled by the calling code
+      throw error;
   }
 };
 
-
-// server/Schema.js and other existing imports
-
-app.post("/register", upload.single("photo"), async (req, res) => {
-  const { fullname, registrationno, email, year, department, mobileno, domain, additionalPreferences } = req.body;
-  const photo = req.file ? req.file.path : ""; // Path to the uploaded photo
-
-  if (!fullname || !registrationno || !email || !year || !department || !mobileno || !domain) {
+app.post("/register", async (req, res) => {
+  const { fullname, registrationno, email, year, department, mobileno, domain,photo, additionalPreferences, github, linkedin } = req.body;
+console.log(req.body)
+  if (!fullname || !registrationno || !email || !year || !department || !mobileno || !domain || !github || !linkedin) {
       return res.status(400).json({ message: "All fields are required!" });
   }
 
@@ -108,12 +88,12 @@ app.post("/register", upload.single("photo"), async (req, res) => {
   };
 
   const additionalLinks = {
-      ML: "https://chat.whatsapp.com/CV1w56clzY4CbqZIXt×NOb",
-      DSA: "https://chat.whatsapp.com/HPFqcCNqPVjlHnYqMkpfHG",
-      GATE: "https://chat.whatsapp.com/EDmiXkYBuRqOwdGiQvyCSo"
-      
+      ML: "https://chat.whatsapp.com/CV1w56clzY4CbqZlXtxNOb",
+      DSA: "https://chat.whatsapp.com/HPFqcCNqPVjIHnYqMkpfHG",
+      GATE: "https://chat.whatsapp.com/EDmiXkYBuRq0wdGiQvyCSo"
   };
-  const additionalPreferencesArray = JSON.parse(additionalPreferences);
+  const additionalPreferencesArray = JSON.parse(additionalPreferences || '[]');
+  console.log('Parsed Additional Preferences:', additionalPreferencesArray);
 
 
   let whatsappLink = domainLinks[domain] || "#";
@@ -188,8 +168,10 @@ app.post("/register", upload.single("photo"), async (req, res) => {
       department,
       mobileno,
       domain,
-      additionalPreferences: Array.isArray(additionalPreferences) ? JSON.parse(additionalPreferences) : [],
-      photo
+      additionalPreferences: Array.isArray(additionalPreferencesArray) ? additionalPreferencesArray : [],
+      photo,
+      github,
+      linkedin
   });
 
   try {
@@ -210,7 +192,6 @@ app.post("/register", upload.single("photo"), async (req, res) => {
 });
 
 
-app.use('/uploads', express.static('uploads'));
 
 app.get("/", (req, res) => {
   res.send("hi");

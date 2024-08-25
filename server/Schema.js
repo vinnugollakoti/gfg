@@ -12,7 +12,9 @@ const contactSchema = new mongoose.Schema({
     mobileno: String,
     domain: String,
     additionalPreferences: [String], // Array of strings for preferences
-    photo: String // Path to the photo
+    photo: String,
+    github: String,
+    linkedin: String
 });
 
 // Create and export the Contact model

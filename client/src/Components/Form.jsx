@@ -1,6 +1,7 @@
 import phone from "../assets/phone.png";
 import { useState, useEffect } from "react";
 import Loader from "./Loader";
+import SuccessPage from "./SuccessPage";
 import axios from "axios";
 
 const Form = () => {
@@ -16,9 +17,12 @@ const Form = () => {
     const [message, setMessage] = useState("");
     const [errmsg, setErrmsg] = useState("");
     const [fullname, setFullname] = useState("");
-    const [photo, setPhoto] = useState(null);
+    const [photo, setPhoto] = useState("");
     const [photoPreview, setPhotoPreview] = useState("");
-    const [imageName,setimageName]=useState("")
+    const [imageName,setimageName]=useState("");
+    const [github, setGithub] = useState("");
+    const [linkedin, setLinkedin] = useState("");
+    const [showModal, setShowmodal] = useState(false)
 
     const handlePhotoChange = (e) => {
         const file = e.target.files[0];
@@ -27,7 +31,10 @@ const Form = () => {
         if (file) {
             setimageName(file.name)
             const reader = new FileReader();
-            reader.onloadend = () => {
+            reader.onloadend =async () => {
+                const response = await axios.post('https://api.cloudinary.com/v1_1/dvw9vd875/image/upload', {file:reader.result,upload_preset:"gfgcloud"});
+                console.log('File uploaded successfully:', response.data);
+                setPhoto(response.data.url)
                 setPhotoPreview(reader.result);
             };
             reader.readAsDataURL(file);
@@ -54,7 +61,7 @@ const Form = () => {
         setFullname(`${firstName} ${secondName}`);
     }, [firstName, secondName]);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         
         // Log the form data to check values
@@ -111,16 +118,15 @@ const Form = () => {
         if (photo) {
             formData.append("photo", photo);
         }
-    
-        axios.post("http://localhost:3001/register", formData, {
-            headers: {
-                "Content-Type": "multipart/form-data",
-            },
-        })
+
+        axios.post("http://localhost:3001/register", {fullname,registrationno,email,year,department,mobileno,domain,additionalPreferences:JSON.stringify(Object.keys(additionalCheckboxes).filter(key => additionalCheckboxes[key])),photo, github, linkedin}
+        )
         .then((res) => {
             console.log(res.data);
             setLoading(false);
             setMessage("✔️ Your registration was successful!");
+            setimageName("")
+            setShowmodal(true)
             resetForm();
         })
         .catch(error => {
@@ -170,7 +176,6 @@ const Form = () => {
         const { value } = e.target;
         setDomain(value);
 
-        // Reset additional checkboxes and count when domain changes
         if (value !== "Technical") {
             setAdditionalCheckboxes({
                 ML: false,
@@ -203,9 +208,13 @@ const Form = () => {
             agree4: false,
             agree5: false,
         });
-        setPhoto(null); // Clear the photo
-        setPhotoPreview(""); // Clear the photo preview
+        setPhoto(null);
+        setPhotoPreview("");
     };
+
+    const handleCloseModal = () => {
+        setShowmodal(false)
+    }
 
     return (
         <div>
@@ -240,6 +249,10 @@ const Form = () => {
                             <div className="checkbox-div">
                                 <input type="radio" required name="radio1" value="III Year (2022-2026 Batch)" className="checkbox" onChange={(e) => setYear(e.target.value)} checked={year === "III Year (2022-2026 Batch)"} />
                                 <label htmlFor="radio1">III Year (2022-2026 Batch)</label>
+                            </div>
+                            <div className="checkbox-div">
+                                <input type="radio" required name="radio1" value="IV Year (2021 - 2025 Batch)" className="checkbox" onChange={(e) => setYear(e.target.value)} checked={year === "IV Year (2021 - 2025 Batch)"} />
+                                <label htmlFor="radio1">IV Year (2021-2025 Batch)</label>
                             </div>
                         </div>
                         <div className="form-1">
@@ -285,10 +298,17 @@ const Form = () => {
                             <div>
                             {photoPreview && <img src={photoPreview} alt="Photo Preview" style={{ width: "100px", height: "100px", marginTop: "10px" }} />}
                             <p className="line2">{imageName}</p>
-                            
                             </div>
                             </center>
                             </div>
+                        </div>
+                        <div className="form-1">
+                            <label htmlFor="text">Your Github profile:</label><br />
+                            <input type="text" required placeholder="Paste your github profile link" className="input1" onChange={(e) => setGithub(e.target.value)}/>
+                        </div>
+                        <div className="form-1">
+                            <label htmlFor="text">Your LinkedIn profile:</label><br />
+                            <input type="text" required placeholder="Paste your linkedin profile link" className="input1" onChange={(e) => setLinkedin(e.target.value)}/>
                         </div>
                         <div className="form-1">
                             <label>I understand that being an active member is essential for the growth of the student chapter.</label><br />
@@ -342,6 +362,7 @@ const Form = () => {
                     </div>
                 </div>
             </div>
+            {showModal && <SuccessPage onClose={handleCloseModal} />}
         </div>
     );
 };
