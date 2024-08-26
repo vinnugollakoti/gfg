@@ -119,7 +119,7 @@ const Form = () => {
             formData.append("photo", photo);
         }
 
-        axios.post("http://localhost:3001/register", {fullname,registrationno,email,year,department,mobileno,domain,additionalPreferences:JSON.stringify(Object.keys(additionalCheckboxes).filter(key => additionalCheckboxes[key])),photo, github, linkedin}
+        axios.post("https://gfg-cueb.onrender.com/register", {fullname,registrationno,email,year,department,mobileno,domain,additionalPreferences:JSON.stringify(Object.keys(additionalCheckboxes).filter(key => additionalCheckboxes[key])),photo, github, linkedin}
         )
         .then((res) => {
             console.log(res.data);
@@ -210,6 +210,8 @@ const Form = () => {
         });
         setPhoto(null);
         setPhotoPreview("");
+        setGithub("");
+        setLinkedin("")
     };
 
     const handleCloseModal = () => {
@@ -304,11 +306,11 @@ const Form = () => {
                         </div>
                         <div className="form-1">
                             <label htmlFor="text">Your Github profile:</label><br />
-                            <input type="text" required placeholder="Paste your github profile link" className="input1" onChange={(e) => setGithub(e.target.value)}/>
+                            <input type="text" required placeholder="Paste your github profile link" className="input1" onChange={(e) => setGithub(e.target.value)} value={github}/>
                         </div>
                         <div className="form-1">
                             <label htmlFor="text">Your LinkedIn profile:</label><br />
-                            <input type="text" required placeholder="Paste your linkedin profile link" className="input1" onChange={(e) => setLinkedin(e.target.value)}/>
+                            <input type="text" required placeholder="Paste your linkedin profile link" className="input1" onChange={(e) => setLinkedin(e.target.value)} value={linkedin}/>
                         </div>
                         <div className="form-1">
                             <label>I understand that being an active member is essential for the growth of the student chapter.</label><br />
@@ -352,7 +354,7 @@ const Form = () => {
                         {errmsg && <div className="message-text">{errmsg}</div>}
                     </form>
                 </div>
-                <div className="contact-blog">
+                {/* <div className="contact-blog">
                     <h1 className="caption1">All the best!</h1>
                     <p className="caption2">After Registration check your mail for your domain whatsapp group link if you didn't find the email check spam folders.</p>
                     <h3 className="caption3">For any queries</h3>
@@ -360,7 +362,7 @@ const Form = () => {
                         <img src={phone} alt="Phone icon" className="phone" />
                         <p className="caption3">+91 6301181244</p>
                     </div>
-                </div>
+                </div> */}
             </div>
             {showModal && <SuccessPage onClose={handleCloseModal} />}
         </div>

@@ -6,8 +6,9 @@
     margin-left: 15%;
     z-index: 1;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     margin-top: 7%;
+    margin-bottom: 3%;
 }
 .bg1 {
     position: fixed;
@@ -22,16 +23,15 @@ h1 {
 form {
     margin-top: 4%;
     width: 90%;
-    margin-left: 5%;
+    margin-left: 6%;
 }
 .form {
-    width: 58%;
+    width: 70%;
     background-color: white;
     color: black;
     padding-top: 2%;
     padding-bottom: 4%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    
     border-radius: 10px;
 }
   .contact-blog {
