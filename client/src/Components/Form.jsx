@@ -263,7 +263,7 @@ const Form = () => {
                         </div>
                         <div className="form-1">
                             <label htmlFor="number">Enter your Whatsapp No:</label><br />
-                            <input type="number" required placeholder="Enter your Whatsapp No" className="input1" onChange={(e) => setMobileNo(e.target.value)} value={mobileno} />
+                            <input type="tel" required placeholder="Enter your Whatsapp No" className="input1" onChange={(e) => setMobileNo(e.target.value)} value={mobileno} />
                         </div>
                         <div className="form-2">
                             <label htmlFor="text">Which Domain you are interested in ?</label><br />
