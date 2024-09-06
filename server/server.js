@@ -15,10 +15,10 @@ const mongoURI = "mongodb+srv://vinnugollakoti:vinnu1244@cluster0.cwivpr4.mongod
 
 
 var transporter = nodemailer.createTransport({
-    service: 'outlook',
+    service: 'gmail',
     auth: {
-      user: 'mohanavamsi16@outlook.com',
-      pass: 'fmyeynjakqxqxtsm'
+      user: 'gfgkarestudentchapter@gmail.com',
+      pass: 'qkdxdlwinivhtqdp'
     }
 });
 
@@ -56,7 +56,7 @@ const emailStyles = `
 
 const sendEmail = async (to, subject, htmlContent) => {
   const mailOptions = {
-      from: 'mohanavamsi16@outlook.com',
+      from: 'gfgkarestudentchapter@gmail.com',
       to,
       subject,
       html: htmlContent + emailStyles
