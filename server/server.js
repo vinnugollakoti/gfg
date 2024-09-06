@@ -74,8 +74,8 @@ const sendEmail = async (to, subject, htmlContent) => {
 app.post("/register", async (req, res) => {
   const { fullname, registrationno, email, year, department, mobileno, domain,photo, additionalPreferences, github, linkedin } = req.body;
 console.log(req.body)
-  if (!fullname || !registrationno || !email || !year || !department || !mobileno || !domain || !github || !linkedin) {
-      return res.status(400).json({ message: "All fields are required!" });
+  if (!fullname || !registrationno || !email || !year || !department || !mobileno || !domain) {
+      return res.status(400).json({ message: "Please fill the details properly" });
   }
 
   const domainLinks = {
